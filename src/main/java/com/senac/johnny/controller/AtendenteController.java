@@ -1,12 +1,12 @@
 package com.senac.johnny.controller;
 
+import com.senac.johnny.dto.CreateUserDto;
 import com.senac.johnny.entity.Atendente;
 import com.senac.johnny.service.AtendenteService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -18,14 +18,19 @@ public class AtendenteController {
         this.atendenteService = atendenteService;
     }
 
-    @GetMapping("/listarTodos")
+    @GetMapping("/listar")
     public ResponseEntity <List<Atendente>> listarTodos(){
         return ResponseEntity.ok(atendenteService.listarTodos());
     }
 
-    @GetMapping("/listarPorId/{id}")
-    public ResponseEntity<Atendente> listarPorId(@PathVariable("id")Integer id){
+    @GetMapping("/listarporid/{id}")
+    public ResponseEntity<Atendente> listarPorId(@PathVariable ("id") Integer id){
         return ResponseEntity.ok(atendenteService.listarPorId(id));
     }
 
+    @PostMapping("/criar")
+    public ResponseEntity<Void> criarAtendente (@RequestBody CreateUserDto createUserDto){
+        atendenteService.criarAtentende(createUserDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }

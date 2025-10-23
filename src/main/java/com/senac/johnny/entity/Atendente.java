@@ -3,6 +3,7 @@ package com.senac.johnny.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -19,15 +20,17 @@ public class Atendente {
     @Column(name = "atendente_chave_acesso")
     private String chaveAcesso;
     @Column(name = "atendente_data_criacao")
-    private LocalDate dataCriacao;
+    private LocalDateTime dataCriacao;
     @Column(name = "atendente_ativo")
     private Integer ativo;
 
-    @OneToMany(mappedBy = "atendente")
-    List<ChamadaAtendente> chamadasAtendentes;
+    @OneToMany (mappedBy = "atendente")
+    List<ChamadaAtendente> chamadasAtendente;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "atendente_role", joinColumns = @JoinColumn(name = "atendente_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name="atendente_role",
+            joinColumns = @JoinColumn(name = "atendente_id"),
+            inverseJoinColumns = @JoinColumn(name="role_id"))
     private List<Role> roles;
 
     public Integer getId() {
@@ -62,11 +65,11 @@ public class Atendente {
         this.chaveAcesso = chaveAcesso;
     }
 
-    public LocalDate getDataCriacao() {
+    public LocalDateTime getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(LocalDate dataCriacao) {
+    public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
@@ -78,12 +81,12 @@ public class Atendente {
         this.ativo = ativo;
     }
 
-    public List<ChamadaAtendente> getChamadasAtendentes() {
-        return chamadasAtendentes;
+    public List<ChamadaAtendente> getChamadasAtendente() {
+        return chamadasAtendente;
     }
 
-    public void setChamadasAtendentes(List<ChamadaAtendente> chamadasAtendentes) {
-        this.chamadasAtendentes = chamadasAtendentes;
+    public void setChamadasAtendente(List<ChamadaAtendente> chamadasAtendente) {
+        this.chamadasAtendente = chamadasAtendente;
     }
 
     public List<Role> getRoles() {

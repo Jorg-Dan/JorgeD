@@ -22,8 +22,8 @@ public class SecurityConfiguration {
     private UserAuthenticationFilter userAuthenticationFilter;
 
     public static final String [] ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
-            "/api/usuario/criar", // Url que usaremos para criar um usuário
-            "/api/usuario/login", // Url que usaremos para fazer login
+            "/api/atendente/login", // Url que usaremos para fazer login
+            "/api/atendente/criar", // Url que usaremos para criar um usuário
 
             // 🔓 Swagger/OpenAPI UI
             "/v3/api-docs/**",

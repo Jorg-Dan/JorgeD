@@ -1,6 +1,6 @@
 package com.senac.johnny.entity;
 
 public enum RoleName {
-    Role_Atendente,
-    Role_Gerente,
+    ROLE_ATENDENTE,
+    ROLE_COORDENADOR
 }

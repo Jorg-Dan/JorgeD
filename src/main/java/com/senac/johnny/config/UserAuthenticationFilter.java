@@ -1,7 +1,9 @@
 package com.senac.johnny.config;
 
+
 import com.senac.johnny.entity.Atendente;
 import com.senac.johnny.repository.AtendenteRepository;
+import com.senac.johnny.service.JwtTokenService;
 import com.senac.johnny.service.UserDetailsImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -24,7 +26,7 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
     private JwtTokenService jwtTokenService; // Service que definimos anteriormente
 
     @Autowired
-    private AtendenteRepository atendenteRepository; // Repository que definimos anteriormente
+    private AtendenteRepository userRepository; // Repository que definimos anteriormente
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -33,8 +35,8 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
             String token = recoveryToken(request); // Recupera o token do cabeçalho Authorization da requisição
             if (token != null) {
                 String subject = jwtTokenService.getSubjectFromToken(token); // Obtém o assunto (neste caso, o nome de usuário) do token
-                Atendente atendente = atendenteRepository.findByLogin(subject).get(); // Busca o usuário pelo email (que é o assunto do token)
-                UserDetailsImpl userDetails = new UserDetailsImpl(atendente); // Cria um UserDetails com o usuário encontrado
+                Atendente user = userRepository.findByUsuarioLogin(subject).get(); // Busca o usuário pelo email (que é o assunto do token)
+                UserDetailsImpl userDetails = new UserDetailsImpl(user); // Cria um UserDetails com o usuário encontrado
 
                 // Cria um objeto de autenticação do Spring Security
                 Authentication authentication =
